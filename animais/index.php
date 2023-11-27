@@ -32,27 +32,29 @@ include(HEADER_TEMPLATE);
         <tr>
             <th>ID</th>
             <th width="30%">Nome</th>
-            <th>CPF/CNPJ</th>
-            <th>Telefone</th>
-            <th>Atualizado em</th>
+            <th>Tutor</th>
+            <th>Tipo</th>
+            <th>Data de nascimento</th>
+            <th>Foto</th>
             <th>Opções</th>
         </tr>
     </thead>
     <tbody>
-        <?php if ($customers) : ?>
-            <?php foreach ($customers as $customer) : 
-                      $deleteLink = "delete.php?id=" . $customer['id'];
+        <?php if ($animals) : ?>
+            <?php foreach ($animals as $animal) : 
+                      $deleteLink = "delete.php?id=" . $animal['id'];
                 
                 ?>
                 <tr>
-                    <td><?php echo $customer['id']; ?></td>
-                    <td><?php echo $customer['name']; ?></td>
-                    <td><?php echo $customer['cpf_cnpj']; ?></td>
-                    <td><?php echo $customer['mobile']; ?></td>
-                    <td><?php echo formatadata($customer['modified'], "Y-m-d H:i:s"); ?></td>
+                    <td><?php echo $animal['id']; ?></td>
+                    <td><?php echo $animal['nome']; ?></td>
+                    <td><?php echo $animal['tutor']; ?></td>
+                    <td><?php echo $animal['tipo']; ?></td>
+                    <td><?php echo formatadata($animal['dataNasc'], "Y-m-d H:i:s"); ?></td>
+                    <td><?php echo formatadata($animal['dataNasc'], "Y-m-d H:i:s"); ?></td>
                     <td class="actions text-start">
-                        <a href="view.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-light"><i class="fa fa-eye"></i> Visualizar</a>
-                        <a href="edit.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>
+                        <a href="view.php?id=<?php echo $animal['id']; ?>" class="btn btn-sm btn-light"><i class="fa fa-eye"></i> Visualizar</a>
+                        <a href="edit.php?id=<?php echo $animal['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>
 
                         <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" 
                         data-bs-custumer="<?php echo $customer['id'];?>" data-bs-target="#exampleModal">

@@ -11,7 +11,7 @@
      */
     function index() {
         global $animal;
-        $animals = find_all("customers");
+        $animals = find_all("animal");
     }
 
     /**
@@ -29,8 +29,8 @@
         if (!empty($_POST['customer'])) {
             $today = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
             $animal = $_POST['animal'];
-            $customer['modified'] = $customer['created'] = $today->format("Y-m-d H:i:s");
-            save('customers', $customer);
+            $customer['dataNasc'] = $today->format("Y-m-d H:i:s");
+            save('animal', $animal);
             header('location: index.php');
         }
     }
@@ -47,17 +47,17 @@
     
         $id = $_GET['id'];
     
-        if (isset($_POST['customer'])) {
+        if (isset($_POST['animal'])) {
     
-            $customer = $_POST['customer'];
-            $customer['modified'] = $now->format("Y-m-d H:i:s");
+            $customer = $_POST['animal'];
+            $animal['dataNasc'] = $now->format("Y-m-d H:i:s");
     
-            update('customers', $id, $customer);
+            update('animal', $id, $animal);
             header('location: index.php');
         } else {
     
             global $customer;
-            $customer = find('customers', $id);
+            $customer = find('animal', $id);
         } 
         } else {
         header('location: index.php');
@@ -66,8 +66,8 @@
 
     function delete($id = null) {
 
-        global $customer;
-        $customer = remove('customers', $id);
+        global $animal;
+        $animal = remove('animal', $id);
       
         header('location: index.php');
       }

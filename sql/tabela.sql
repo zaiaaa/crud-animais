@@ -51,3 +51,5 @@ CREATE TABLE animal(
     dataNasc DATE,
     foto varchar(69)
 );
+
+INSERT INTO animal(nome, tutor, tipo, dataNasc, foto) VALUES('Toby', 'Moisés', 'Cachorro', '2023-08-21', 'foto.jpg')
