@@ -42,3 +42,12 @@ INSERT INTO `usuarios`(`nome`, `user`, `password`)
 VALUES ('Zé Lele','zelele','5243897562837456982'),
 ('Mary Zica','mazi','786098767869'),
 ('Fugiru Nakombi','fugina','623485634753234');
+
+CREATE TABLE animal(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(50),
+    tutor varchar(50),
+    tipo varchar(25),
+    dataNasc DATE,
+    foto varchar(69)
+);

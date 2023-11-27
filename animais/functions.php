@@ -3,23 +3,23 @@
     include('../config.php');
     include(DBAPI);
 
-    $customers = null;
-    $customer = null;
+    $animals = null;
+    $animal = null;
 
     /**
      *  Listagem de Clientes
      */
     function index() {
-        global $customers;
-        $customers = find_all("customers");
+        global $animal;
+        $animals = find_all("customers");
     }
 
     /**
      *  Visualização de um Cliente
      */
     function view($id = null) {
-        global $customer;
-        $customer = find("customers", $id);
+        global $animal;
+        $animals = find("animal", $id);
     }
 
     /**
@@ -28,7 +28,7 @@
     function add() {
         if (!empty($_POST['customer'])) {
             $today = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
-            $customer = $_POST['customer'];
+            $animal = $_POST['animal'];
             $customer['modified'] = $customer['created'] = $today->format("Y-m-d H:i:s");
             save('customers', $customer);
             header('location: index.php');
