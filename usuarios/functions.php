@@ -65,9 +65,14 @@
                     $usuario['password'] = $senha;
                 }
 
-                save('usuarios', $usuario);
-
-                header('Location; index.php');
+                if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
+                {
+                    $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
+		            $_SESSION['type'] = 'danger';
+                }else{
+                    save('usuarios', $usuario);
+                    header('Location: index.php');
+                }
             }catch(Exception $e){
                 $_SESSION['message'] = 'Aconteceu um erro: ' . $e->getMessage();
 		        $_SESSION['type'] = 'danger';

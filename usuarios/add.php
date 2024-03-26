@@ -1,11 +1,15 @@
 <?php
 include('functions.php');
+session_start();
 add();
 include(HEADER_TEMPLATE);
 ?>
 
             <h2 class="mt-2">Novo Usuário</h2>
 
+            <?php
+                echo $_SESSION['message']
+            ?>
             <form action="add.php" method="post" enctype="multipart/form-data">
                 <!-- area de campos do form -->
                 <hr />

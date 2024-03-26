@@ -16,7 +16,7 @@ include(HEADER_TEMPLATE);
 
             <!-- password input -->
             <div class="form-floating col-12 mb-2">
-                <input type="text" id="pass" class="form-control" name="senha" placeholder="Senha">
+                <input type="password" id="pass" class="form-control" name="senha" placeholder="Senha">
                 <label for="pass">Password</label>
             </div>
 

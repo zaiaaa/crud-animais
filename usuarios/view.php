@@ -1,6 +1,5 @@
 <?php 
     include('functions.php'); 
-    include('../config.php');
     if(!isset($_SESSION)) session_start();
     if(isset($_SESSION['user'])){
         if($_SESSION['user'] != "admin"){

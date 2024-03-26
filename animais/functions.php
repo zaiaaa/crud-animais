@@ -10,7 +10,7 @@
      *  Listagem de Clientes
      */
     function index() {
-        global $animal;
+        global $animals;
         $animals = find_all("animal");
     }
 
@@ -18,7 +18,7 @@
      *  Visualização de um Cliente
      */
     function view($id = null) {
-        global $animal;
+        global $animals;
         $animals = find("animal", $id);
     }
 
