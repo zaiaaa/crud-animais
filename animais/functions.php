@@ -81,26 +81,51 @@
     */
     function edit() {
 
-        $now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
-    
-        if (isset($_GET['id'])) {
-    
-        $id = $_GET['id'];
-    
-        if (isset($_POST['animal'])) {
-    
-            $customer = $_POST['animal'];
-            $animal['dataNasc'] = $now->format("Y-m-d H:i:s");
-    
-            update('animal', $id, $animal);
+        
+        //$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+        try {
+            if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            
+
+            if (isset($_POST['animal'])) {
+        
+                $animal = $_POST['animal'];
+
+                if (!empty($_FILES["foto"]["name"])) {
+                    // Upload da foto
+                    $pasta_destino = "fotos/";
+                    
+
+                    $tipo_arquivo = strtolower(pathinfo(basename($_FILES["foto"]["name"]), PATHINFO_EXTENSION)); 
+
+                    $nomearquivo = uniqid() . "." . $tipo_arquivo;  // extensão do arquivo
+                    //pasta onde ficam as fotos
+
+                    $arquivo_destino = $pasta_destino . $nomearquivo;
+
+                    $tamanho_arquivo = $_FILES["foto"]["size"]; //tamanho do arquivo em bytes
+                    $nome_temp = $_FILES["foto"]["tmp_name"]; // nome e caminho do arquivo no servidor
+                   
+                    
+                    // Chamda do da função upload para gravar uma imagem
+                    upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo);
+                
+                    $animal['foto'] = $nomearquivo;
+                }
+
+                update('animal', $id, $animal);
+                header('location: index.php');
+            } else {
+                global $animal;
+                $animal = find('animal', $id);
+            }
+            } else {
             header('location: index.php');
-        } else {
-    
-            global $customer;
-            $customer = find('animal', $id);
-        } 
-        } else {
-        header('location: index.php');
+            }
+        } catch (Exception $e) {
+            $_SESSION['message'] = 'Aconteceu um erro: ' . $e->getMessage();
+		    $_SESSION['type'] = 'danger';
         }
     }
 

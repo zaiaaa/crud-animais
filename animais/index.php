@@ -9,7 +9,7 @@ include(HEADER_TEMPLATE);
 <header class="mt-2">
     <div class="row">
         <div class="col-sm-6">
-            <h2>Clientes</h2>
+            <h2>Animais</h2>
         </div>
         <div class="col-sm-6 text-right h2">
             <a class="btn btn-secondary" href="add.php"><i class="fa-solid fa-user-plus"></i> Novo Cliente</a>

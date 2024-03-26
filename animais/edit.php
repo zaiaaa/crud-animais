@@ -1,82 +1,83 @@
 <?php 
 require_once('functions.php');
 edit();
+session_start();
 include(HEADER_TEMPLATE); ?>
 
             <h2 class="mt-2">Atualizar Cliente</h2>
 
-            <form action="edit.php?id=<?php echo $customer['id']; ?>" method="post">
+            <form action="edit.php?id=<?php echo $animal['id']; ?>" method="post" enctype="multipart/form-data">
                 <hr />
                 <div class="row">
-                    <div class="form-group col-md-7">
-                        <label for="name">Nome / Razão Social</label>
-                        <input type="text" class="form-control" name="customer['name']" value="<?php echo $customer['name']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="campo2">CNPJ / CPF</label>
-                        <input type="text" class="form-control" name="customer['cpf_cnpj']" value="<?php echo $customer['cpf_cnpj']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo3">Data de Nascimento</label>
-                        <input type="text" class="form-control" name="customer['birthdate']" value="<?php echo $customer['birthdate']; ?>">
+                    <div class="form-group col-md-8">
+                        <label for="name">Nome</label>
+                        <input type="text" class="form-control" name="animal[nome]" value="<?php echo $animal['nome']; ?>">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-7">
-                        <label for="campo1">Endereço</label>
-                        <input type="text" class="form-control" name="customer['address']" value="<?php echo $customer['address']; ?>">
+                    <div class="form-group col-md-4">
+                        <label for="campo2">Tutor</label>
+                        <input type="text" class="form-control" name="animal['tutor']" value="<?php echo $animal['tutor']; ?>">
                     </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="campo2">Bairro</label>
-                        <input type="text" class="form-control" name="customer['hood']" value="<?php echo $customer['hood']; ?>">
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="campo3">Tipo</label>
+                        <input type="text" class="form-control" name="animal['tipo']" value="<?php echo $animal['tipo']; ?>">
                     </div>
-
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="campo3">Data de nascimento</label>
+                        <input type="date" class="form-control" name="animal['dataNasc']" value="<?php echo $animal['dataNasc']; ?>">
+                    </div>
+                </div>
+                <div class="row">
+                    <?php 
+                        $foto = "";
+                        if (empty($usuario['foto'])) {
+                            $foto = "sem_imagem.jpg";
+                        } else {
+                            $foto = $usuario['foto'];
+                        }
+                    ?>
+                    <div class="form-group col-md-4">
+                        <label for="campo1">Foto</label>
+                        <input type="file" class="form-control" id="foto" name="foto" value="fotos/<?php echo $foto; ?>">
+                    </div>
+                        
                     <div class="form-group col-md-2">
+                        <label for="pre">Pré-Visualização</label>
+                        <img class="form-control shadow p-2 mb-2 bg-body rounded" id="imgPreview" src="fotos/<?php echo $foto ;?>" alt="Foto do usuário" srcset="">
+                    </div>
+                </div>
+
+                    <!-- <div class="form-group col-md-2">   
                         <label for="campo3">CEP</label>
-                        <input type="text" class="form-control" name="customer['zip_code']" value="<?php echo $customer['zip_code']; ?>">
-                    </div>
-
+                        <input type="text" class="form-control" name="customer['zip_code']" value="// echo $customer['zip_code']; ?>">
+                    </div> -->
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="campo1">Município</label>
-                        <input type="text" class="form-control" name="customer['city']" value="<?php echo $customer['city']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo2">Telefone</label>
-                        <input type="text" class="form-control" id = "telefone" maxlength="14" name="customer['phone']" value="<?php echo $customer['phone']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo3">Celular</label>
-                        <input type="text" class="form-control" id = "celular" maxlength="15" name="customer['mobile']" value="<?php echo $customer['mobile']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-1">
-                        <label for="campo3">UF</label>
-                        <input type="text" class="form-control" name="customer['state']" value="<?php echo $customer['state']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo3">Inscrição Estadual</label>
-                        <input type="text" class="form-control" name="customer['ie']" value="<?php echo $customer['ie']; ?>">
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo3">UF</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div id="actions" class="row mt-2">
+                
+                <div id="actions" class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-dark">Salvar</button>
-                        <a href="index.php" class="btn btn-light">Cancelar</a>
+                        <button type="submit" class="btn btn-secondary"><i class="fa-solid fa-sd-card"></i> Salvar</button>
+                        <a href="index.php" class="btn btn-light"><i class="fa-solid fa-rotate-left"></i> Cancelar</a>
                     </div>
                 </div>
             </form>
 
 <?php include(FOOTER_TEMPLATE); ?>
+        <script>
+            $(document).ready(() => {
+                $("#foto").change(function () {
+                    const file = this.files[0];
+                    if (file) {
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            $("#imgPreview").attr("src", event.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        </script>
