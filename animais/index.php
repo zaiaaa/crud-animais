@@ -64,7 +64,7 @@ include(HEADER_TEMPLATE);
                         <a href="edit.php?id=<?php echo $animal['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>
 
                         <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" 
-                        data-bs-custumer="<?php echo $customer['id'];?>" data-bs-target="#exampleModal">
+                        data-bs-custumer="<?php echo $animal['id'];?>" data-bs-target="#exampleModal">
                              <i class="fa fa-trash"></i>Excluir
                         </button>
                     </td>
