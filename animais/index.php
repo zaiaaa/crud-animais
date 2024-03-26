@@ -52,6 +52,13 @@ include(HEADER_TEMPLATE);
                     <td><?php echo $animal['tipo']; ?></td>
                     <td><?php echo formatadata($animal['dataNasc'], "Y-m-d H:i:s"); ?></td>
                     <td><?php echo formatadata($animal['dataNasc'], "Y-m-d H:i:s"); ?></td>
+                    <td><?php
+                        if($animal['foto']){
+                            echo '<img width="100px" src="fotos/'. $animal['foto'] .'"';
+                        }else{
+                            echo '<img width="100px" src="fotos/sem_imagem.jpg"';
+                        }
+                    ?></td>
                     <td class="actions text-start">
                         <a href="view.php?id=<?php echo $animal['id']; ?>" class="btn btn-sm btn-light"><i class="fa fa-eye"></i> Visualizar</a>
                         <a href="edit.php?id=<?php echo $animal['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>

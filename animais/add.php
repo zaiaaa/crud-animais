@@ -1,75 +1,60 @@
 <?php
 include('functions.php');
+session_start();
 add();
-include(HEADER_TEMPLATE); 
+include(HEADER_TEMPLATE);
 ?>
 
-            <h2 class="mt-2">Novo Cliente</h2>
+            <h2 class="mt-2">Novo animal</h2>
 
-            <form action="add.php" method="post">
+            <?php if (!empty($_SESSION['message'])) : ?>
+                <div class="alert alert-<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['message']; ?></div>
+            <?php endif; ?>
+            
+            <form action="add.php" method="post" enctype="multipart/form-data">
                 <!-- area de campos do form -->
                 <hr />
                 <div class="row">
-                    <div class="form-group col-md-7">
-                        <label for="name">Nome / Razão Social</label>
-                        <input type="text" class="form-control" name="customer['name']" required>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="campo2">CNPJ / CPF</label>
-                        <input type="text" class="form-control" name="customer['cpf_cnpj']" required>
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo3">Data de Nascimento</label>
-                        <input type="date" class="form-control" name="customer['birthdate']" required>
+                    <div class="form-group col-md-8">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="animal[nome]" required>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-7">
-                        <label for="campo1">Endereço</label>
-                        <input type="text" class="form-control" name="customer['address']" required>
+                    <div class="form-group col-md-4">
+                        <label for="tipo">Tipo</label>
+                        <input type="text" class="form-control" id="tipo" name="animal[tipo]" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <label for="senha">Tutor</label>
+                        <input type="text" class="form-control" id="tutor" name="animal[tutor]" required>
                     </div>
 
-                    <div class="form-group col-md-3">
-                        <label for="campo2">Bairro</label>
-                        <input type="text" class="form-control" name="customer['hood']" required>
+                    <div class="form-group col-md-4">
+                        <label for="dataNasc">Data de nascimento</label>
+                        <input type="date" class="form-control" id="dataNasc" name="animal[dataNasc]" required>
                     </div>
 
-                    <div class="form-group col-md-2">
-                        <label for="campo3">CEP</label>
-                        <input type="text" class="form-control" name="customer['zip_code']" required>
-                    </div>
+
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-5">
-                        <label for="campo1">Município</label>
-                        <input type="text" class="form-control" name="customer['city']" required>
+
+                    <div class="form-group col-md-4">
+                        <label for="foto">Foto</label>
+                        <input type="file" class="form-control" id="foto" name="foto" >
                     </div>
 
                     <div class="form-group col-md-2">
-                        <label for="campo2">Telefone</label>
-                        <input type="text" id="telefone" class="form-control" maxlength="14"  name="customer['phone']" required>
+                        <label for="imgPreview">Pré visualização</label>
+                        <img class="form-control rounded" id="imgPreview" src="./fotos/sem_imagem.jpg" alt="" srcset="">
                     </div>
 
-                    <div class="form-group col-md-2">
-                        <label for="campo3">Celular</label>
-                        <input type="text" class="form-control" id="celular" maxlength="15"  name="customer['mobile']" required>
-                    </div>
-
-                    <div class="form-group col-md-1">
-                        <label for="campo3">UF</label>
-                        <input type="text" class="form-control" name="customer['state']" required>
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="campo3">Inscrição Estadual</label>
-                        <input type="text" class="form-control" name="customer['ie']" required>
-                    </div>
-
-                 
                 </div>
 
                 <div id="actions" class="row mt-2">
@@ -81,3 +66,17 @@ include(HEADER_TEMPLATE);
             </form>
 
 <?php include(FOOTER_TEMPLATE); ?>
+        <script>
+            $(document).ready(() => {
+                $("#foto").change(function () {
+                    const file = this.files[0];
+                    if (file) {
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            $("#imgPreview").attr("src", event.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        </script>
