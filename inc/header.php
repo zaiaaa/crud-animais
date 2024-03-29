@@ -59,8 +59,8 @@
                             <i class="fa-solid fa-paw"></i> Animais
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?php echo BASEURL?>customers/add.php"> <i class="fa-solid fa-plus"></i> Adicionar animal</a></li>
-                            <li><a class="dropdown-item" href="<?php echo BASEURL?>customers/"> <i class="fa-solid fa-paw"></i> Gerenciar animais</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASEURL?>animais/add.php"> <i class="fa-solid fa-plus"></i> Adicionar animal</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASEURL?>animais/"> <i class="fa-solid fa-paw"></i> Gerenciar animais</a></li>
                         </ul>
                     </li>
 
