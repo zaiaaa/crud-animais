@@ -3,9 +3,15 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 
 function open_database()
 {
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
 	try {
-		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		$conn->set_charset("utf8");
+		$conn = new PDO("mysql:host=$servername;dbname=wda_crud", $username, $password);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		// if($conn){
+		// 	echo "conexao efetuada";
+		// }
 		return $conn;
 	} catch (Exception $e) {
 		echo $e->getMessage();
@@ -16,33 +22,34 @@ function open_database()
 function close_database($conn)
 {
 	try {
-		mysqli_close($conn);
+		$conn = null;
 	} catch (Exception $e) {
 		echo $e->getMessage();
 	}
 }
-/**
- *  Pesquisa um Registro pelo ID em uma Tabela
- */
+// /**
+//  *  Pesquisa um Registro pelo ID em uma Tabela
+//  */
 function find($table = null, $id = null)
 {
 	try {
 		$database = open_database();
 		$found = null;
 		if ($id) {
-			$sql = "SELECT * FROM " . $table . " WHERE id = " . $id;
-			$result = $database->query($sql);
+			$stmt = $database->prepare("SELECT * FROM " . $table . " WHERE id = ?");
+			$stmt->bindParam(1, $id);
 
-			if ($result->num_rows > 0) {
-				$found = $result->fetch_assoc();
+			$stmt->execute();
+
+			if($stmt->rowCount() > 0) {
+				$found = $stmt->fetch(PDO::FETCH_ASSOC);
 			}
 		} else {
+			$stmt = $database->prepare("SELECT * FROM " . $table);
+			$stmt->execute();
 
-			$sql = "SELECT * FROM " . $table;
-			$result = $database->query($sql);
-
-			if ($result->num_rows > 0) {
-				$found = $result->fetch_all(MYSQLI_ASSOC);
+			if ($stmt->rowCount() > 0) {
+				$found = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 				/* Metodo alternativo
 					$found = array();
@@ -66,101 +73,101 @@ function find_all($table)
 	return find($table);
 }
 
-/**
- *  Insere um registro no BD
- */
-function save($table = null, $data = null)
-{
+// /**
+//  *  Insere um registro no BD
+//  */
+// function save($table = null, $data = null)
+// {
 
-	$database = open_database();
+// 	$database = open_database();
 
-	$columns = null;
-	$values = null;
+// 	$columns = null;
+// 	$values = null;
 
-	//print_r($data);
+// 	//print_r($data);
 
-	foreach ($data as $key => $value) {
-		$columns .= trim($key, "'") . ",";
-		$values .= "'$value',";
-	}
+// 	foreach ($data as $key => $value) {
+// 		$columns .= trim($key, "'") . ",";
+// 		$values .= "'$value',";
+// 	}
 
-	// remove a ultima virgula
-	$columns = rtrim($columns, ',');
-	$values = rtrim($values, ',');
+// 	// remove a ultima virgula
+// 	$columns = rtrim($columns, ',');
+// 	$values = rtrim($values, ',');
 
-	$sql = "INSERT INTO " . $table . "($columns)" . " VALUES " . "($values);";
+// 	$sql = "INSERT INTO " . $table . "($columns)" . " VALUES " . "($values);";
 
-	try {
-		$database->query($sql);
+// 	try {
+// 		$database->query($sql);
 
-		$_SESSION['message'] = 'Registro cadastrado com sucesso.';
-		$_SESSION['type'] = 'success';
-	} catch (Exception $e) {
+// 		$_SESSION['message'] = 'Registro cadastrado com sucesso.';
+// 		$_SESSION['type'] = 'success';
+// 	} catch (Exception $e) {
 
-		$_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
-		$_SESSION['type'] = 'danger';
-	}
+// 		$_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+// 		$_SESSION['type'] = 'danger';
+// 	}
 
-	close_database($database);
-}
+// 	close_database($database);
+// }
 
 
-function update($table = null, $id = 0, $data = null)
-{
+// function update($table = null, $id = 0, $data = null)
+// {
 
-	$database = open_database();
+// 	$database = open_database();
 
-	$items = null;
+// 	$items = null;
 
-	foreach ($data as $key => $value) {
-		$items .= trim($key, "'") . "='$value',";
-	}
+// 	foreach ($data as $key => $value) {
+// 		$items .= trim($key, "'") . "='$value',";
+// 	}
 
-	// remove a ultima virgula
-	$items = rtrim($items, ',');
+// 	// remove a ultima virgula
+// 	$items = rtrim($items, ',');
 
-	$sql  = "UPDATE " . $table;
-	$sql .= " SET $items";
-	$sql .= " WHERE id=" . $id . ";";
+// 	$sql  = "UPDATE " . $table;
+// 	$sql .= " SET $items";
+// 	$sql .= " WHERE id=" . $id . ";";
 
-	try {
-		$database->query($sql);
+// 	try {
+// 		$database->query($sql);
 
-		$_SESSION['message'] = 'Registro atualizado com sucesso.';
-		$_SESSION['type'] = 'success';
-	} catch (Exception $e) {
+// 		$_SESSION['message'] = 'Registro atualizado com sucesso.';
+// 		$_SESSION['type'] = 'success';
+// 	} catch (Exception $e) {
 
-		$_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
-		$_SESSION['type'] = 'danger';
-	}
+// 		$_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+// 		$_SESSION['type'] = 'danger';
+// 	}
 
-	close_database($database);
-}
+// 	close_database($database);
+// }
 
-function remove($table = null, $id = null)
-{
+// function remove($table = null, $id = null)
+// {
 
-	$database = open_database();
+// 	$database = open_database();
 
-	try {
-		if ($id) {
+// 	try {
+// 		if ($id) {
 
-			$sql = "DELETE FROM " . $table . " WHERE id = " . $id;
-			$result = $database->query($sql);
+// 			$sql = "DELETE FROM " . $table . " WHERE id = " . $id;
+// 			$result = $database->query($sql);
 
-			if ($result = $database->query($sql)) {
-				$_SESSION['message'] = "Registro Removido com Sucesso.";
-				$_SESSION['type'] = 'success';
-			}
-		}
-	} catch (Exception $e) {
+// 			if ($result = $database->query($sql)) {
+// 				$_SESSION['message'] = "Registro Removido com Sucesso.";
+// 				$_SESSION['type'] = 'success';
+// 			}
+// 		}
+// 	} catch (Exception $e) {
 
-		$_SESSION['message'] = $e->GetMessage();
-		$_SESSION['type'] = 'danger';
-	}
+// 		$_SESSION['message'] = $e->GetMessage();
+// 		$_SESSION['type'] = 'danger';
+// 	}
 
-	close_database($database);
-}
+// 	close_database($database);
+// }
 
 
 function formatadata($date, $formato)
@@ -224,100 +231,100 @@ function criptografia($senha)
 }
 
 
-//upload de imagemfunction
-function upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo)
-{
+// //upload de imagemfunction
+// function upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo)
+// {
 	
-	$uploadOk = 1;
-	$tipo_arquivo = strtolower(pathinfo($arquivo_destino, PATHINFO_EXTENSION));
+// 	$uploadOk = 1;
+// 	$tipo_arquivo = strtolower(pathinfo($arquivo_destino, PATHINFO_EXTENSION));
 
-	// Check if image file is a actual image or fake image
-	if (isset($_POST["submit"])) {
-		$check = getimagesize($nome_temp);
-		if ($check !== false) {
+// 	// Check if image file is a actual image or fake image
+// 	if (isset($_POST["submit"])) {
+// 		$check = getimagesize($nome_temp);
+// 		if ($check !== false) {
 			
-				$_SESSION['message'] = "O arquivo é uma imagem";
-				$_SESSION['type'] = 'success';
-				//echo "File is an image - " . $check["mime"] . ".";
-				$uploadOk = 1;
-		} else {
-			throw new Exception("O arquivo não é uma imagem");
-			// echo "File is not an image.";
-			$uploadOk = 0;
-		}
-	}
+// 				$_SESSION['message'] = "O arquivo é uma imagem";
+// 				$_SESSION['type'] = 'success';
+// 				//echo "File is an image - " . $check["mime"] . ".";
+// 				$uploadOk = 1;
+// 		} else {
+// 			throw new Exception("O arquivo não é uma imagem");
+// 			// echo "File is not an image.";
+// 			$uploadOk = 0;
+// 		}
+// 	}
 
-	// Check if file already exists
-	if (file_exists($arquivo_destino)) {
-		throw new Exception("O arquivo já existe");
-		//echo "Sorry, file already exists.";
-		$uploadOk = 0;
-	}
+// 	// Check if file already exists
+// 	if (file_exists($arquivo_destino)) {
+// 		throw new Exception("O arquivo já existe");
+// 		//echo "Sorry, file already exists.";
+// 		$uploadOk = 0;
+// 	}
 
-	// Check file size
-	if ($tamanho_arquivo> 5000000) {
-		throw new Exception("O arquivo é grande");
-		$uploadOk = 0;
-	}
+// 	// Check file size
+// 	if ($tamanho_arquivo> 5000000) {
+// 		throw new Exception("O arquivo é grande");
+// 		$uploadOk = 0;
+// 	}
 
-	// Allow certain file formats
-	if (
-		$tipo_arquivo != "jpg" && $tipo_arquivo != "png" && $tipo_arquivo != "jpeg"
-		&& $tipo_arquivo != "gif"
-	){
-		throw new Exception("O arquivo tem que ser JPG, JPEG, PNG & GIF ");
-		//echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-		$uploadOk = 0;
-	}
+// 	// Allow certain file formats
+// 	if (
+// 		$tipo_arquivo != "jpg" && $tipo_arquivo != "png" && $tipo_arquivo != "jpeg"
+// 		&& $tipo_arquivo != "gif"
+// 	){
+// 		throw new Exception("O arquivo tem que ser JPG, JPEG, PNG & GIF ");
+// 		//echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+// 		$uploadOk = 0;
+// 	}
 
-	// Check if $uploadOk is set to 0 by an error
-	if ($uploadOk == 0) {
-		throw new Exception("Falha ao gravar o arquivo ");
-		//echo "Sorry, your file was not uploaded.";
-		// if everything is ok, try to upload file
-	} else {
+// 	// Check if $uploadOk is set to 0 by an error
+// 	if ($uploadOk == 0) {
+// 		throw new Exception("Falha ao gravar o arquivo ");
+// 		//echo "Sorry, your file was not uploaded.";
+// 		// if everything is ok, try to upload file
+// 	} else {
 		
-		if (move_uploaded_file($nome_temp, $arquivo_destino)) {
-			$_SESSION['message'] = "O arquivo foi gravado no servidor";
-				$_SESSION['type'] = 'success';
-			//echo "The file " . htmlspecialchars(basename($_FILES["foto"]["name"])) . " has been uploaded.";
-		} else {
-			throw new Exception("Falha ao gravar o arquivo ");
-		}
-	}
-}
+// 		if (move_uploaded_file($nome_temp, $arquivo_destino)) {
+// 			$_SESSION['message'] = "O arquivo foi gravado no servidor";
+// 				$_SESSION['type'] = 'success';
+// 			//echo "The file " . htmlspecialchars(basename($_FILES["foto"]["name"])) . " has been uploaded.";
+// 		} else {
+// 			throw new Exception("Falha ao gravar o arquivo ");
+// 		}
+// 	}
+// }
 
 
-function filter( $table = null, $p=null) {
+// function filter( $table = null, $p=null) {
 
-	$database = open_database();
-	$found = null;
+// 	$database = open_database();
+// 	$found = null;
 
-	try{
-		if ($p) {
-			$sql = "SELECT * FROM ". $table . " WHERE " . $p;
-			$result = mysqli_query($database, $sql);
-			$n_registro =  mysqli_num_rows($result);
-			if ($n_registro > 0){
-				$found = array();
-				while($row = $result->fetch_assoc()) {
-					array_push($found,$row);
-				}
-			} else{
-				throw new Exception("Não foram encontrados registros de dados!");
-			}
-		}
-	} catch(Exception $e) {
-		$_SESSION['message'] = "Ocorreu um erro: " . $e->GetMessage();
-		$_SESSION['type'] = "danger";
-	}
+// 	try{
+// 		if ($p) {
+// 			$sql = "SELECT * FROM ". $table . " WHERE " . $p;
+// 			$result = mysqli_query($database, $sql);
+// 			$n_registro =  mysqli_num_rows($result);
+// 			if ($n_registro > 0){
+// 				$found = array();
+// 				while($row = $result->fetch_assoc()) {
+// 					array_push($found,$row);
+// 				}
+// 			} else{
+// 				throw new Exception("Não foram encontrados registros de dados!");
+// 			}
+// 		}
+// 	} catch(Exception $e) {
+// 		$_SESSION['message'] = "Ocorreu um erro: " . $e->GetMessage();
+// 		$_SESSION['type'] = "danger";
+// 	}
 
-	close_database($database);
-	return $found;
-}
+// 	close_database($database);
+// 	return $found;
+// }
 
 
-function clear_messages() {
-	$_SESSION['message'] = null;
-	$_SESSION['type'] = null;
-}
+// function clear_messages() {
+// 	$_SESSION['message'] = null;
+// 	$_SESSION['type'] = null;
+// }

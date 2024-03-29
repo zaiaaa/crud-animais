@@ -70,6 +70,6 @@
         $customer = remove('customers', $id);
       
         header('location: index.php');
-      }
+    }
 
 ?>
