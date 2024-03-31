@@ -17,7 +17,7 @@ include(HEADER_TEMPLATE);
 
                     <div class="form-group col-md-3">
                         <label for="campo2">CNPJ / CPF</label>
-                        <input type="text" class="form-control" name="customer['cpf_cnpj']" required>
+                        <input type="text" id="cpf" class="form-control" name="customer['cpf_cnpj']" maxlength="18" required>
                     </div>
 
                     <div class="form-group col-md-2">
@@ -39,7 +39,7 @@ include(HEADER_TEMPLATE);
 
                     <div class="form-group col-md-2">
                         <label for="campo3">CEP</label>
-                        <input type="text" class="form-control" name="customer['zip_code']" required>
+                        <input type="text" class="form-control" id="cep" maxlength="10" name="customer['zip_code']" required>
                     </div>
                 </div>
 
@@ -61,12 +61,12 @@ include(HEADER_TEMPLATE);
 
                     <div class="form-group col-md-1">
                         <label for="campo3">UF</label>
-                        <input type="text" class="form-control" name="customer['state']" required>
+                        <input type="text" class="form-control" id="uf" name="customer['state']" maxlength="2" required>
                     </div>
 
                     <div class="form-group col-md-2">
                         <label for="campo3">Inscrição Estadual</label>
-                        <input type="text" class="form-control" name="customer['ie']" required>
+                        <input type="text" class="form-control" id="ie" maxlength="14" name="customer['ie']" required>
                     </div>
 
                  

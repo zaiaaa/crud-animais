@@ -50,8 +50,7 @@ include(HEADER_TEMPLATE);
                     <td><?php echo $animal['nome']; ?></td>
                     <td><?php echo $animal['tutor']; ?></td>
                     <td><?php echo $animal['tipo']; ?></td>
-                    <td><?php echo formatadata($animal['dataNasc'], "Y-m-d H:i:s"); ?></td>
-                    <td><?php echo formatadata($animal['dataNasc'], "Y-m-d H:i:s"); ?></td>
+                    <td><?php echo formatadata($animal['dataNasc'], "d/m/Y"); ?></td>
                     <td><?php
                         if($animal['foto']){
                             echo '<img width="100px" src="fotos/'. $animal['foto'] .'"';

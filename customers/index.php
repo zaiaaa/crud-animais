@@ -49,7 +49,7 @@ include(HEADER_TEMPLATE);
                     <td><?php echo $customer['name']; ?></td>
                     <td><?php echo $customer['cpf_cnpj']; ?></td>
                     <td><?php echo $customer['mobile']; ?></td>
-                    <td><?php echo formatadata($customer['modified'], "Y-m-d H:i:s"); ?></td>
+                    <td><?php echo formatadata($customer['modified'], "d/m/Y H:i:s"); ?></td>
                     <td class="actions text-start">
                         <a href="view.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-light"><i class="fa fa-eye"></i> Visualizar</a>
                         <a href="edit.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>
