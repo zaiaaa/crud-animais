@@ -1,6 +1,5 @@
 <?php
 include('functions.php');
-session_start();
 add();
 include(HEADER_TEMPLATE);
 ?>

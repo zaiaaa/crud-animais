@@ -12,7 +12,7 @@
     function index() {
         global $usuarios;
         if(!empty($_POST['users'])) {
-            $usuarios = filter("usuarios", "nome like '%" . $_POST['users'] . "%'");
+            $usuarios = filter("usuarios", "%" . $_POST['users'] . "%");
         } else{
             $usuarios = find_all("usuarios");
         }

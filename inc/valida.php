@@ -8,29 +8,28 @@
         exit;
     }
 
-    $bd = open_database();
+    $database = open_database();
 
     try {
-        $bd -> select_db(DB_NAME);
-
         $usuario = $_POST['login'];
         $senha = $_POST['senha'];
 
         if(!empty($usuario) AND !empty($senha)) {
             $senha = criptografia($_POST['senha']);
 
-            $sql = "SELECT id, nome, user, password FROM usuarios WHERE (user = '". $usuario . "') LIMIT 1";
-            $query = $bd -> query($sql);
-            if($query->num_rows > 0) {
-                $dados = $query->fetch_assoc();
+            $stmt = $database->prepare("SELECT id, nome, user, password FROM usuarios WHERE (user = ?) LIMIT 1");
+            $stmt->bindParam(1, $usuario);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) {
+                $dados = $stmt->fetchAll();
                 // echo "<b>";
                 // var_dump($dados);
                 // echo "</b>";
 
-                $id = $dados["id"];
-                $nome = $dados["nome"];
-                $user = $dados["user"];
-                $password = $dados["password"];
+                $id = $dados[0]["id"];
+                $nome = $dados[0]["nome"];
+                $user = $dados[0]["user"];
+                $password = $dados[0]["password"];
 
                 if(!empty($user)){
                     if(!isset($_SESSION)) session_start();
@@ -44,15 +43,15 @@
                     var_dump($_SESSION['user']);
                     echo "</b>";
                 }else{
-                    throw new Exception("Não foi possível se conectar! Verifique seu usuário e senha.");
+                    throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
                 }
             }else{
-                throw new Exception("Não foi possível se conectar! Verifique seu usuário e senha.");
+                throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
             }
         }else{
-            throw new Exception("Não foi possível se conectar! Verifique seu usuário e senha.");
+            throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
         }
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         $_SESSION['message'] = "Ocorreu um erro " . $e->GetMessage();
         $_SESSION['type'] = 'danger';
     }
