@@ -1,6 +1,5 @@
 <?php
 include('functions.php');
-
 index();
 
 include(HEADER_TEMPLATE);
@@ -12,7 +11,7 @@ include(HEADER_TEMPLATE);
             <h2>Animais</h2>
         </div>
         <div class="col-sm-6 text-right h2">
-            <a class="btn btn-secondary" href="add.php"><i class="fa-solid fa-user-plus"></i> Novo Cliente</a>
+            <a class="btn btn-secondary" href="add.php"><i class="fa-solid fa-plus"></i> Novo Animal</a>
             <a class="btn btn-light" href="index.php"><i class="fa-solid fa-refresh"></i> Atualizar</a>
         </div>
     </div>
@@ -23,7 +22,7 @@ include(HEADER_TEMPLATE);
         <?php echo $_SESSION['message']; ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <!--  clear_messages(); -->
+     <?php clear_messages(); ?>
 <?php endif; ?>
 
 <hr>

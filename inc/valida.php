@@ -39,9 +39,10 @@
                     $_SESSION["id"] = $id;
                     $_SESSION["nome"] = $nome;
                     $_SESSION["user"] = $user;
-                    echo "<b>";
-                    var_dump($_SESSION['user']);
-                    echo "</b>";
+                    header('Location: ../index.php');
+                    // echo "<b>";
+                    // var_dump($_SESSION['user']);
+                    // echo "</b>";
                 }else{
                     throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
                 }

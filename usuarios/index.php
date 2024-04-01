@@ -33,7 +33,7 @@ include(HEADER_TEMPLATE);
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         
         </div>
-        <!--  clear_messages(); -->
+        <?php clear_messages(); ?>
         <?php endif; ?>
 
     <hr>

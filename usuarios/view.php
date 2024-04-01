@@ -20,7 +20,7 @@
             <h2 class="mt-2">Cliente <?php echo $usuario['id']; ?></h2>
             <hr>
 
-            <?php if (!empty($_SESSION['message'])) : ?>
+            <?php if (empty($_SESSION['message'])) : ?>
                 <div class="alert alert-<?php echo $_SESSION['type']; ?>"><?php echo $_SESSION['message']; ?></div>
             <?php endif; ?>
 

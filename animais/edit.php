@@ -1,10 +1,15 @@
 <?php 
 require_once('functions.php');
 edit();
-session_start();
 include(HEADER_TEMPLATE); ?>
 
             <h2 class="mt-2">Atualizar Cliente</h2>
+
+            <?php
+                if(!isset($_SESSION["message"])){
+                    var_dump($_SESSION["type"]);
+                }
+            ?>
 
             <form action="edit.php?id=<?php echo $animal['id']; ?>" method="post" enctype="multipart/form-data">
                 <hr />

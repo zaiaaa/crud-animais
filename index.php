@@ -1,8 +1,10 @@
 <?php
+if(!isset($_SESSION)) session_start();
 include 'config.php';
 include DBAPI;
 include(HEADER_TEMPLATE);
 $db = open_database();
+
 ?>
 
             <hr>
@@ -108,7 +110,7 @@ $db = open_database();
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
 
-                <?php //clear_messages();?>
+                <?php clear_messages();?>
                 <?php endif; ?>
             <?php endif; ?>
 

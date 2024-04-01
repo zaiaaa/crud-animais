@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     include('../config.php');
     include(DBAPI);
 
@@ -26,6 +26,7 @@
     *  Cadastro de Clientes
      */
     function add() {
+        clear_messages();
         if (!empty($_POST['animal'])) {
             try{
                 $animal = $_POST['animal'];
@@ -114,8 +115,15 @@
                     $animal['foto'] = $nomearquivo;
                 }
 
-                update('animal', $id, $animal);
-                header('location: index.php');
+                if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
+                {
+                    $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
+		            $_SESSION['type'] = 'danger';
+                    header('Location: index.php');
+                }else{
+                    update('animal', $id, $animal);
+                    header('Location: index.php');
+                }
             } else {
                 global $animal;
                 $animal = find('animal', $id);
@@ -126,6 +134,7 @@
         } catch (Exception $e) {
             $_SESSION['message'] = 'Aconteceu um erro: ' . $e->getMessage();
 		    $_SESSION['type'] = 'danger';
+            header('Location: index.php');
         }
     }
 
