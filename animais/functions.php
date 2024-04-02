@@ -53,22 +53,16 @@
                     upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo);
                 
                     $animal['foto'] = $nomearquivo;
+                    if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
+                    {
+                        $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
+                        $_SESSION['type'] = 'danger';
+                    }    
                 }   
 
-                //criptografando a senha
-                if(!empty($animal['animal'])) {
-                    $senha = criptografia($animal['animal']);
-                    $animal['animal'] = $senha;
-                }
+                save('animal', $animal);
+                header('Location: index.php');
 
-                if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
-                {
-                    $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
-		            $_SESSION['type'] = 'danger';
-                }else{
-                    save('animal', $animal);
-                    header('Location: index.php');
-                }
             }catch(Exception $e){
                 $_SESSION['message'] = 'Aconteceu um erro: ' . $e->getMessage();
 		        $_SESSION['type'] = 'danger';
@@ -113,17 +107,17 @@
                     upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo);
                 
                     $animal['foto'] = $nomearquivo;
+                    if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
+                    {
+                        $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
+                        $_SESSION['type'] = 'danger';
+                        header('Location: index.php');
+                    }
                 }
 
-                if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
-                {
-                    $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
-		            $_SESSION['type'] = 'danger';
-                    header('Location: index.php');
-                }else{
-                    update('animal', $id, $animal);
-                    header('Location: index.php');
-                }
+                update('animal', $id, $animal);
+                header('Location: index.php');
+                
             } else {
                 global $animal;
                 $animal = find('animal', $id);
