@@ -2,6 +2,9 @@
 include('functions.php');
 add();
 include(HEADER_TEMPLATE); 
+if(!isset($_SESSION['user'])){
+    header("Location: index.php");
+}
 ?>
 
             <h2 class="mt-2">Novo Cliente</h2>

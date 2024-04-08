@@ -1,7 +1,11 @@
 <?php 
 require_once('functions.php');
 edit();
-include(HEADER_TEMPLATE); ?>
+include(HEADER_TEMPLATE); 
+if(!isset($_SESSION['user'])){
+    header("Location: index.php");
+}
+?>
 
             <h2 class="mt-2">Atualizar Cliente</h2>
 

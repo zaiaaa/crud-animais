@@ -12,7 +12,11 @@ include(HEADER_TEMPLATE);
             <h2>Clientes</h2>
         </div>
         <div class="col-sm-6 text-right h2">
+            <?php if(isset($_SESSION['user'])): ?>
             <a class="btn btn-secondary" href="add.php"><i class="fa-solid fa-user-plus"></i> Novo Cliente</a>
+            <?php else: ?>
+            <a class="btn btn-secondary disabled" href="add.php"><i class="fa-solid fa-user-plus"></i> Novo Cliente</a>
+            <?php endif; ?>
             <a class="btn btn-light" href="index.php"><i class="fa-solid fa-refresh"></i> Atualizar</a>
         </div>
     </div>
@@ -51,13 +55,17 @@ include(HEADER_TEMPLATE);
                     <td><?php echo $customer['mobile']; ?></td>
                     <td><?php echo formatadata($customer['modified'], "d/m/Y H:i:s"); ?></td>
                     <td class="actions text-start">
-                        <a href="view.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-light"><i class="fa fa-eye"></i> Visualizar</a>
-                        <a href="edit.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>
+                        <?php if(isset($_SESSION['user'])): ?>
+                            <a href="view.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-light"><i class="fa fa-eye"></i> Visualizar</a>
+                            <a href="edit.php?id=<?php echo $customer['id']; ?>" class="btn btn-sm btn-secondary"><i class="fa fa-pencil"></i> Editar</a>
 
-                        <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" 
-                        data-bs-custumer="<?php echo $customer['id'];?>" data-bs-target="#exampleModal">
-                             <i class="fa fa-trash"></i>Excluir
-                        </button>
+                            <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" 
+                            data-bs-custumer="<?php echo $customer['id'];?>" data-bs-target="#exampleModal">
+                                <i class="fa fa-trash"></i>Excluir
+                            </button>
+                        <?php else: ?>
+                        <p>login necessário para ter acesso.</p>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -1,7 +1,11 @@
 <?php 
 require_once('functions.php');
 edit();
-include(HEADER_TEMPLATE); ?>
+include(HEADER_TEMPLATE); 
+if(!isset($_SESSION['user'])){
+    header("Location: index.php");
+}
+?>
 
             <h2 class="mt-2">Atualizar Cliente</h2>
 
@@ -48,7 +52,7 @@ include(HEADER_TEMPLATE); ?>
 
                     <div class="form-group col-md-2">
                         <label for="campo2">Telefone</label>
-                        <input type="text" class="form-control" id = "telefone" maxlength="14" name="customer['phone']" value="<?php echo $customer['phone']; ?>">
+                        <input type="text" class="form-control" id = "telefone" maxlength="15" name="customer['phone']" value="<?php echo $customer['phone']; ?>">
                     </div>
 
                     <div class="form-group col-md-2">
