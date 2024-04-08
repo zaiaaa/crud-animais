@@ -135,9 +135,12 @@
     function delete($id = null) {
 
         global $animal;
+        $animal_photo = find('animal', $id);
+        var_dump($animal_photo);
+        unlink("./fotos/" . $animal_photo["foto"]);
         $animal = remove('animal', $id);
       
-        header('location: index.php');
+        //header('location: index.php');
       }
 
 ?>
