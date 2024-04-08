@@ -56,7 +56,12 @@
                     
                     // Chamda do da função upload para gravar uma imagem
                     upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo);
-                
+                    
+                    if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
+                    {
+                        $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
+                        $_SESSION['type'] = 'danger';
+                    }
                     $usuario['foto'] = $nomearquivo;
                 }   
 
@@ -66,14 +71,9 @@
                     $usuario['password'] = $senha;
                 }
 
-                if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")
-                {
-                    $_SESSION['message'] = 'O arquivo deve ser uma imagem ';
-		            $_SESSION['type'] = 'danger';
-                }else{
-                    save('usuarios', $usuario);
-                    header('Location: index.php');
-                }
+                save('usuarios', $usuario);
+                header('Location: index.php');
+                
             }catch(Exception $e){
                 $_SESSION['message'] = 'Aconteceu um erro: ' . $e->getMessage();
 		        $_SESSION['type'] = 'danger';
