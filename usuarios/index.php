@@ -62,7 +62,7 @@ include(HEADER_TEMPLATE);
                             if(!empty($usuario['foto'])){
                                 echo '<img src="fotos/' . $usuario['foto']  . '" alt="" class="shadow p-1 mb-1 bg-body rounded" width="100px">';
                             }else{
-                                echo '<img src="fotos/sem_imagem.jpg" alt="" class="shadow p-1 mb-1 bg-body rounded" width="100px">';
+                                echo '<img src="fotos/sem_foto.png" alt="" class="shadow p-1 mb-1 bg-body rounded" width="100px">';
                             }
                        ?>
                        </td>
