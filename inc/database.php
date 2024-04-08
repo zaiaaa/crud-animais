@@ -269,7 +269,7 @@ function upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $ta
 	// Allow certain file formats
 	if (
 		$tipo_arquivo != "jpg" && $tipo_arquivo != "png" && $tipo_arquivo != "jpeg"
-		&& $tipo_arquivo != "gif"
+		&& $tipo_arquivo != "gif" && $tipo_arquivo != "webp"
 	){
 		throw new Exception("O arquivo tem que ser JPG, JPEG, PNG & GIF ");
 		//echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";

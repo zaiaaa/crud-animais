@@ -51,7 +51,7 @@ include(HEADER_TEMPLATE);
 
                     <div class="form-group col-md-2">
                         <label for="campo2">Telefone</label>
-                        <input type="text" id="telefone" class="form-control" maxlength="14"  name="customer['phone']" required>
+                        <input type="text" id="telefone" class="form-control" maxlength="15"  name="customer['phone']" required>
                     </div>
 
                     <div class="form-group col-md-2">

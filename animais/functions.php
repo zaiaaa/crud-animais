@@ -81,8 +81,6 @@
      *	Atualizacao/Edicao de Cliente
     */
     function edit() {
-
-        
         //$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
         try {
             if (isset($_GET['id'])) {
