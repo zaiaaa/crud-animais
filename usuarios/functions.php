@@ -96,7 +96,8 @@
             if (isset($_POST['usuario'])) {
         
                 $usuario = $_POST['usuario'];
-        
+                $old_photo = $_POST['old_photo'];
+
                 //criptografando a senha
                 if(!empty($usuario['password'])) {
                     $senha = criptografia($usuario['password']);
@@ -121,7 +122,8 @@
                     
                     // Chamda do da função upload para gravar uma imagem
                     upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo);
-                
+                    unlink('./fotos/' . $old_photo);
+                    
                     $usuario['foto'] = $nomearquivo;
                 }
 

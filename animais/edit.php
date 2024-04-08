@@ -58,7 +58,7 @@ include(HEADER_TEMPLATE); ?>
                 </div>
 
                     <div class="form-group col-md-2">   
-                        <input type="text" class="form-control" name="old_photo" id="secret_input" value="<?php echo $animal['foto']; ?>">
+                        <input type="text" class="form-control secret_input" name="old_photo" value="<?php echo $animal['foto']; ?>">
                     </div>
                 </div>
                 

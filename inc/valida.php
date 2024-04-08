@@ -17,8 +17,9 @@
         if(!empty($usuario) AND !empty($senha)) {
             $senha = criptografia($_POST['senha']);
 
-            $stmt = $database->prepare("SELECT id, nome, user, password FROM usuarios WHERE (user = ?) LIMIT 1");
+            $stmt = $database->prepare("SELECT id, nome, user, password FROM usuarios WHERE (user = ?) AND (password = ?) LIMIT 1");
             $stmt->bindParam(1, $usuario);
+            $stmt->bindParam(2, $senha);
             $stmt->execute();
             if($stmt->rowCount() > 0) {
                 $dados = $stmt->fetchAll();
@@ -29,7 +30,7 @@
                 $id = $dados[0]["id"];
                 $nome = $dados[0]["nome"];
                 $user = $dados[0]["user"];
-                $password = $dados[0]["password"];
+                $passwordHash = $dados[0]["password"];
 
                 if(!empty($user)){
                     if(!isset($_SESSION)) session_start();
