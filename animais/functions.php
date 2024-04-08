@@ -84,6 +84,7 @@
             if (isset($_POST['animal'])) {
         
                 $animal = $_POST['animal'];
+                $old_photo = $_POST['old_photo'];
 
                 if (!empty($_FILES["foto"]["name"])) {
                     // Upload da foto
@@ -101,8 +102,9 @@
                     $nome_temp = $_FILES["foto"]["tmp_name"]; // nome e caminho do arquivo no servidor
                    
                     
-                    // Chamda do da função upload para gravar uma imagem
+                    // Chamada do da função upload para gravar uma imagem
                     upload($pasta_destino, $arquivo_destino, $tipo_arquivo, $nome_temp, $tamanho_arquivo);
+                    unlink("./fotos/" . $old_photo);
                 
                     $animal['foto'] = $nomearquivo;
                     if($tipo_arquivo !== "jpg" && $tipo_arquivo !== "jpeg" && $tipo_arquivo !== "png" && $tipo_arquivo !== "webp")

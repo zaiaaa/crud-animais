@@ -57,10 +57,9 @@ include(HEADER_TEMPLATE); ?>
                     </div>
                 </div>
 
-                    <!-- <div class="form-group col-md-2">   
-                        <label for="campo3">CEP</label>
-                        <input type="text" class="form-control" name="customer['zip_code']" value="// echo $customer['zip_code']; ?>">
-                    </div> -->
+                    <div class="form-group col-md-2">   
+                        <input type="text" class="form-control" name="old_photo" id="secret_input" value="<?php echo $animal['foto']; ?>">
+                    </div>
                 </div>
                 
                 <div id="actions" class="row">
