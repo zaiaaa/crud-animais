@@ -4,7 +4,7 @@
     require_once(DBAPI);
 
     if(!empty($_POST) AND (empty($_POST['login']) OR empty($_POST['senha']))){
-        header("Location: ". BASEURL . "index.php");
+        header("Location: ". BASEURL . "inc/login.php");
         exit;
     }
 
@@ -46,14 +46,18 @@
                     // echo "</b>";
                 }else{
                     throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
+                    header('Location: ./login.php');
                 }
             }else{
                 throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
+                header('Location: ./login.php');
             }
         }else{
             throw new PDOException("Não foi possível se conectar! Verifique seu usuário e senha.");
+            header('Location: ./login.php');
         }
     } catch (PDOException $e) {
+        header('Location: ./login.php');
         $_SESSION['message'] = "Ocorreu um erro " . $e->GetMessage();
         $_SESSION['type'] = 'danger';
     }
@@ -66,9 +70,5 @@
     </div>
 <?php clear_messages(); ?>
 <?php endif; ?>
-
-<header>
-    <a href="<?php echo BASEURL?>index.php" class="btn btn-light"><i class="fa-solid fa-rotate-left"></i> Voltar</a>
-</header>
 
 <?php include(FOOTER_TEMPLATE)?>
