@@ -1,6 +1,14 @@
 <?php
 include('functions.php');
 
+
+if(isset($_GET['pdf'])){
+    if($_GET['pdf'] == "ok"){
+        pdf();
+    }else{
+        pdf($_GET['pdf']);
+    }
+}
 index();
 
 include(HEADER_TEMPLATE);
@@ -17,6 +25,13 @@ include(HEADER_TEMPLATE);
             <?php else: ?>
             <a class="btn btn-secondary disabled" href="add.php"><i class="fa-solid fa-user-plus"></i> Novo Cliente</a>
             <?php endif; ?>
+            <?php if($_SERVER['REQUEST_METHOD'] == "POST"): ?>
+            <a class="btn btn-danger" href="index.php?pdf=<?php echo $_POST['customers']; ?>" download>Listagem</a>
+            <?php else: ?>
+            <a class="btn btn-danger" href="index.php?pdf=ok" download>Listagem</a>
+            <?php endif;?>
+
+
             <a class="btn btn-light" href="index.php"><i class="fa-solid fa-refresh"></i> Atualizar</a>
         </div>
     </div>
