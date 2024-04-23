@@ -90,7 +90,7 @@
         }
 
         foreach($customers as $customer){
-            $pdf->Cell(100, 10, '(' . $customer['id'] . ')' .  ' - ' .$customer['name'] . ' - ' . $customer['phone'], 0, 0, 'C');
+            $pdf->Cell(100, 10, '(' . $customer['id'] . ')' .  ' - ' .$customer['name'] . ' - ' . $customer['mobile'], 0, 0, 'C');
         }
 
         $pdf->Output();
