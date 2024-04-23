@@ -76,9 +76,11 @@
     function pdf($p = null){
         $pdf = new PDF();
 
+        $pdf->SetTitle('Listagem de Clientes', true);
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Times', '', 12);
+        $pdf->SetMargins(10,10,10);
         $customers = null;
 
         if($p){
@@ -88,7 +90,7 @@
         }
 
         foreach($customers as $customer){
-            $pdf->Cell(0, 10, $customer['id'] . '-' . $customer['name'] . '-' . $customer['phone'], 0, 1);
+            $pdf->Cell(100, 10, $customer['id'] . '-' . $customer['name'] . '-' . $customer['phone'], 0, 0, 'C');
         }
 
         $pdf->Output();
