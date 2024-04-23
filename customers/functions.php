@@ -2,6 +2,7 @@
     session_start();
     include('../config.php');
     include(DBAPI);
+    include(PDF);
 
     $customers = null;
     $customer = null;
@@ -72,4 +73,24 @@
         header('location: index.php');
     }
 
-?>
+
+    function pdf($p = null){
+        $pdf = new PDF();
+
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->SetFont('Times', '', 12);
+        $customers = null;
+
+        if($p){
+            $customers = filter("customers", "nome like '%" . $p . "%'");
+        }else{
+            $customers = find_all("customers");
+        }
+
+        foreach($customers as $customer){
+            $pdf->Cell(0, 10, $customer['id'] . '-' . $customer['nome'] . '-' . $customer['celular'], 0, 1);
+        }
+
+        $pdf->Output();
+    }
