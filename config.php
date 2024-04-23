@@ -27,3 +27,6 @@ if ( !defined('DBAPI') )
 	/** caminhos dos templates de header e footer **/
 define('HEADER_TEMPLATE', ABSPATH . 'inc/header.php');
 define('FOOTER_TEMPLATE', ABSPATH . 'inc/footer.php');
+
+	/** caminho para o PDF */
+define('PDF', ABSPATH . 'inc/fpdf.php');
