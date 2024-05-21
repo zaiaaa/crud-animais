@@ -172,10 +172,6 @@
             }
         }
 
-      function criarTabela($user, $pdf){
-        $pdf->BasicTable($user);
-      }
-
       function pdf($p = null){
         $pdf = new PDF();
 
