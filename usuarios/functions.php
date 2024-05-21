@@ -167,7 +167,19 @@
             foreach($data as $row)
             {
                 foreach($row as $col)
-                    $pdf->Cell(40,6,$col,1);
+                
+                if(pathinfo(basename($col), PATHINFO_EXTENSION) == 'jpg' || $col == null){
+                    if($col == null){
+                        $imagePath = 'http://' . SERVERNAME . BASEURL.  "usuarios/fotos/sem_foto.png";
+                    }else{
+                        $imagePath = 'http://' . SERVERNAME . BASEURL.  "usuarios/fotos/". $col;
+                    }
+                    // Mova para a próxima célula
+                    $pdf->Cell(30, 20, $pdf->Image($imagePath, $pdf->GetX(), $pdf->GetY(), 40, 20), 0);
+                }else{
+                    $pdf->Cell(40,6, $col ,1);
+                }
+                
                 $pdf->Ln();
             }
         }

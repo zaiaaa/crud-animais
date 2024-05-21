@@ -12,6 +12,10 @@ define('DB_PASSWORD', '');
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
 
+/** nome do host do MySQL */
+if ( !defined('SERVERNAME') )
+   define('SERVERNAME', 'localhost');
+
 /** caminho absoluto para a pasta do sistema **/
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
