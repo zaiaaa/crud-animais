@@ -3,6 +3,8 @@
 
     include('../config.php');
     include(DBAPI);
+    include(PDF);
+
 
     $usuario = null;
     $usuarios = null;
@@ -153,6 +155,48 @@
       
         header('Location: index.php');
       }
+
+
+      function BasicTable($header, $data, $pdf)
+        {
+            // Header
+            foreach($header as $col)
+                $pdf->Cell(40,7,$col,1);
+            $pdf->Ln();
+            // Data
+            foreach($data as $row)
+            {
+                foreach($row as $col)
+                    $pdf->Cell(40,6,$col,1);
+                $pdf->Ln();
+            }
+        }
+
+      function criarTabela($user, $pdf){
+        $pdf->BasicTable($user);
+      }
+
+      function pdf($p = null){
+        $pdf = new PDF();
+
+        $pdf->SetTitle('Listagem de Usuários', true);
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->SetFont('Times', '', 12);
+        $pdf->SetMargins(10,10,10);
+        $users = null;
+
+        if($p){
+            $users = filter("usuarios", "name like '%" . $p . "%'");
+        }else{
+            $users = findUserWithoutPassword();
+        }
+        BasicTable(['ID', "Nome", "Username", "Foto"], $users, $pdf);
+        
+
+        $pdf->Output();
+    }
+
 
 
 

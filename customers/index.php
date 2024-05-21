@@ -28,7 +28,7 @@ include(HEADER_TEMPLATE);
             <?php if($_SERVER['REQUEST_METHOD'] == "POST"): ?>
             <a class="btn btn-danger" href="index.php?pdf=<?php echo $_POST['customers']; ?>" download>Listagem</a>
             <?php else: ?>
-            <a class="btn btn-danger" href="index.php?pdf=ok" download>Listagem</a>
+            <a class="btn btn-danger" href="index.php?pdf=ok" download><i class="fa-regular fa-file-pdf"></i> Listagem</a>
             <?php endif;?>
 
 

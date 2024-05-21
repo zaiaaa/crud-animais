@@ -67,6 +67,20 @@ function find($table = null, $id = null)
 	return $found;
 }
 
+function findUserWithoutPassword(){
+	$database = open_database();
+	$found = null;
+
+	
+	$stmt = $database->prepare("SELECT id, nome, user, foto FROM usuarios");
+	$stmt->execute();
+
+	if ($stmt->rowCount() > 0) {
+		$found = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	close_database($database);
+	return $found;
+}
 
 function find_all($table)
 {
