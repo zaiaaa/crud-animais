@@ -334,6 +334,31 @@ function filter( $table = null, $p=null) {
 	return $found;
 }
 
+function filterWithoutPassword($p){
+	$database = open_database();
+	$found = null;
+
+	try{
+		if ($p) {
+			$stmt = $database->prepare("SELECT  id, nome, user, foto FROM usuarios WHERE nome LIKE ?");
+			$stmt->bindParam(1, $p, PDO::PARAM_STR);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			if ($stmt->rowCount() > 0){
+				$found = $result;
+			} else{
+				throw new Exception("Não foram encontrados registros de dados!");
+			}
+		}
+	} catch(Exception $e) {
+		$_SESSION['message'] = "Ocorreu um erro: " . $e->GetMessage();
+		$_SESSION['type'] = "danger";
+	}
+
+	close_database($database);
+	return $found;
+}
+
 
 function clear_messages() {
 	$_SESSION['message'] = null;

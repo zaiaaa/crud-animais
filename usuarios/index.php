@@ -20,7 +20,11 @@ include(HEADER_TEMPLATE);
             </div>
             <div class="col-sm-6 text-end h2">
                 <a class="btn btn-secondary" href="add.php"><i class="fa fa-plus"></i> Novo usuário</a>
+                <?php if($_SERVER['REQUEST_METHOD'] == "POST") : ?>
+                <a class="btn btn-danger" href="index.php?pdf=<?php echo $_POST['users']; ?>" download><i class="fa-regular fa-file-pdf"></i> Listagem</a>
+                <?php else: ?>
                 <a class="btn btn-danger" href="index.php?pdf=ok" download><i class="fa-regular fa-file-pdf"></i> Listagem</a>
+                <?php endif ?>
                 <a class="btn btn-light" href="index.php"><i class="fas fa-sync-alt"></i> Atualizar</a>
             </div>
         </div>

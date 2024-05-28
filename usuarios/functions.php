@@ -162,25 +162,25 @@
             // Header
             foreach($header as $col)
                 $pdf->Cell(40,7,$col,1);
-            $pdf->Ln();
+                $pdf->Ln();
             // Data
             foreach($data as $row)
             {
                 foreach($row as $col)
                 
-                if(pathinfo(basename($col), PATHINFO_EXTENSION) == 'jpg' || $col == null){
+                if(pathinfo(basename($col), PATHINFO_EXTENSION) == 'jpg' || pathinfo(basename($col), PATHINFO_EXTENSION) == 'png' || $col == null){
                     if($col == null){
                         $imagePath = 'http://' . SERVERNAME . BASEURL.  "usuarios/fotos/sem_foto.png";
                     }else{
                         $imagePath = 'http://' . SERVERNAME . BASEURL.  "usuarios/fotos/". $col;
                     }
                     // Mova para a próxima célula
-                    $pdf->Cell(30, 20, $pdf->Image($imagePath, $pdf->GetX(), $pdf->GetY(), 40, 20), 0);
+                    $pdf->Rect($pdf->getX(), $pdf->getY(), 40, 25);
+                    $pdf->Cell(30, 20, $pdf->Image($imagePath, $pdf->GetX(), $pdf->GetY(), 40, 25), 0);
                 }else{
-                    $pdf->Cell(40,6, $col ,1);
-                }
-                
-                $pdf->Ln();
+                    $pdf->Cell(40,25, $col ,1);
+                } 
+                $pdf->Ln(25);
             }
         }
 
@@ -195,7 +195,7 @@
         $users = null;
 
         if($p){
-            $users = filter("usuarios", "name like '%" . $p . "%'");
+            $users = filterWithoutPassword('%'. $p . '%');
         }else{
             $users = findUserWithoutPassword();
         }
