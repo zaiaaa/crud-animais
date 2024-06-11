@@ -10,7 +10,7 @@ class PDF extends FPDF
         // Move to the right
         $this->Cell(80);
         // Framed title
-        $this->Cell(30, 10, 'Listagem de Clientes', 0, 0, 'C');
+        $this->Cell(30, 10, 'Listagem de Usuários', 0, 0, 'C');
         // Line break
         $this->Ln(20);
     }

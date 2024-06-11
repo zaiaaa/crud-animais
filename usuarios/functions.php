@@ -159,16 +159,18 @@
 
       function BasicTable($header, $data, $pdf)
         {
+            $pdfWidth = $pdf->GetPageWidth();
+            $pdfHeight = $pdf->GetPageHeight();
             // Header
             foreach($header as $col)
-                $pdf->Cell(40,7,$col,1);
+                $pdf->Cell(50,7,$col,0);
                 $pdf->Ln();
             // Data
             foreach($data as $row)
             {
                 foreach($row as $col)
                 
-                if(pathinfo(basename($col), PATHINFO_EXTENSION) == 'jpg' || pathinfo(basename($col), PATHINFO_EXTENSION) == 'png' || $col == null){
+                if(pathinfo(basename($col), PATHINFO_EXTENSION) == 'jpg' || pathinfo(basename($col), PATHINFO_EXTENSION) == 'png' || pathinfo(basename($col), PATHINFO_EXTENSION) == 'jpeg'  ||  pathinfo(basename($col), PATHINFO_EXTENSION) == 'webp' || $col == null){
                     if($col == null){
                         $imagePath = 'http://' . SERVERNAME . BASEURL.  "usuarios/fotos/sem_foto.png";
                     }else{
@@ -176,9 +178,9 @@
                     }
                     // Mova para a próxima célula
                     $pdf->Rect($pdf->getX(), $pdf->getY(), 40, 25);
-                    $pdf->Cell(30, 20, $pdf->Image($imagePath, $pdf->GetX(), $pdf->GetY(), 40, 25), 0);
+                    $pdf->Cell(50, 25, $pdf->Image($imagePath, $pdf->GetX(), $pdf->GetY(), 40, 25), 0);
                 }else{
-                    $pdf->Cell(40,25, $col ,1);
+                    $pdf->Cell(50,25, $col ,1);
                 } 
                 $pdf->Ln(25);
             }
